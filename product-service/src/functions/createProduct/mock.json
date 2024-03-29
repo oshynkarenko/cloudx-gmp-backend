@@ -1,0 +1,12 @@
+{
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "product": {
+      "title": "ProductNine",
+      "description": "Short Product Description9",
+      "price": 50
+    }
+  }
+}

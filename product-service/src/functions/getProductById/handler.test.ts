@@ -5,15 +5,24 @@ jest.mock('../../helpers/data-service');
 
 describe('getProductById handler', () => {
   const mockProductData = {
-    count: 5,
-    description: 'Test description',
-    id: '123',
-    price: 150,
-    title: 'Test Product'
+    Items: [{
+      description: 'Test description',
+      id: '123',
+      price: 150,
+      title: 'Test Product'
+    }],
   };
 
+  const mockStockData = {
+    Items: [{
+      product_id: '123',
+      count: 8,
+    }]
+  }
+
   it('should get product data if product with id exists', async () => {
-    jest.spyOn(dataService, 'getProductById').mockReturnValueOnce(Promise.resolve(mockProductData));
+    jest.spyOn(dataService, 'getProductById').mockReturnValueOnce(Promise.resolve(mockProductData) as any);
+    jest.spyOn(dataService, 'getCountById').mockReturnValueOnce(Promise.resolve(mockStockData) as any);
     const mockEvent = {
       pathParameters: {
         productId: '123',
@@ -21,7 +30,13 @@ describe('getProductById handler', () => {
     };
     const expected = {
       statusCode: 200,
-      body: JSON.stringify(mockProductData),
+      body: JSON.stringify({
+        description: 'Test description',
+        id: '123',
+        price: 150,
+        title: 'Test Product',
+        count: 8,
+      }),
       headers: {
         'Access-Control-Allow-Origin': '*',
       },
@@ -33,7 +48,8 @@ describe('getProductById handler', () => {
   });
 
   it('should return 404 response if product with product id does not exist', async () => {
-    jest.spyOn(dataService, 'getProductById').mockReturnValueOnce(Promise.resolve(undefined));
+    jest.spyOn(dataService, 'getProductById').mockReturnValueOnce(Promise.resolve({ Items: [] }) as any);
+    jest.spyOn(dataService, 'getCountById').mockReturnValueOnce(Promise.resolve({ Items: [] }) as any);
     const mockEvent = {
       pathParameters: {
         productId: '123',

@@ -1,17 +1,22 @@
 import { handlerPath } from '@libs/handler-resolver';
 
 export default {
-  handler: `${handlerPath(__dirname)}/handler.getProductList`,
+  handler: `${handlerPath(__dirname)}/handler.createProduct`,
   url: true,
   events: [
     {
       http: {
-        method: 'get',
+        method: 'post',
         path: 'products',
+        bodyType: 'CreateProductData',
         responses: {
-          200: {
+          201: {
             description: 'Success response',
-            bodyType: 'ProductList',
+            bodyType: 'Message',
+          },
+          400: {
+            description: 'Client error',
+            bodyType: 'ApiError'
           },
           500: {
             description: 'Server error',

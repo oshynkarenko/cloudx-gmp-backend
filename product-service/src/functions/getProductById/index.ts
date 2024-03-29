@@ -17,8 +17,16 @@ export default {
             description: 'Product not found response',
             bodyType: 'ApiError',
           },
+          500: {
+            description: 'Server error',
+            bodyType: 'ApiError',
+          },
         },
       },
     },
   ],
+  environment: {
+    PRODUCTS_TABLE_NAME: '${self:provider.environment.PRODUCTS_TABLE}',
+    STOCKS_TABLE_NAME: '${self:provider.environment.STOCKS_TABLE}',
+  },
 };
