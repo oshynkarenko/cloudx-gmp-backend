@@ -1,0 +1,19 @@
+{
+  "name": "cloudx-gmp-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oshynkarenko/cloudx-gmp-backend.git"
+  },
+  "author": "Olena Shynkarenko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oshynkarenko/cloudx-gmp-backend/issues"
+  },
+  "homepage": "https://github.com/oshynkarenko/cloudx-gmp-backend#readme"
+}
