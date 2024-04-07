@@ -4,9 +4,10 @@
   },
   "body": {
     "product": {
-      "title": "ProductNine",
-      "description": "Short Product Description9",
-      "price": 50
+      "title": "ProductTen",
+      "description": "Short Product Description10",
+      "price": 40,
+      "count": 20
     }
   }
 }

@@ -10,6 +10,7 @@ export interface CreateProductData {
     description: string;
     price: number;
     title: string;
+    count: number;
   }
 }
 

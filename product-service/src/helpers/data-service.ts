@@ -3,7 +3,7 @@ import { PromiseResult } from 'aws-sdk/lib/request';
 import { DocumentClient, PutItemOutput, ScanOutput } from 'aws-sdk/clients/dynamodb';
 import * as process from 'process';
 
-import { ProductData } from '../types';
+import { ProductData, StockData } from '../types';
 
 const dynamo = new DocumentClient();
 
@@ -40,6 +40,13 @@ export const dataService = {
     return dynamo.put({
       TableName: process.env.PRODUCTS_TABLE_NAME,
       Item: product,
+    }).promise()
+  },
+
+  createStock: (stock: StockData): Promise<PromiseResult<PutItemOutput, AWSError>> => {
+    return dynamo.put({
+      TableName: process.env.STOCKS_TABLE_NAME,
+      Item: stock,
     }).promise()
   },
 };

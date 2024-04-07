@@ -5,16 +5,24 @@ import {dataService, errorHandlingService, loggerService, validationService} fro
 export const createProduct = async (event) =>  {
   loggerService.logIncomingRequest(event);
 
-  const { product } = JSON.parse(event.body);
+  const { product: productData } = JSON.parse(event.body);
 
-  if (!validationService.isValidProduct(product)) {
+  if (!validationService.isValidProduct(productData)) {
     return errorHandlingService.clientErrorHandler();
   }
 
   try {
+    const productId = uuidv4();
+    const { count, ...product } = productData;
+
     await dataService.createProduct({
       ...product,
-      id: uuidv4(),
+      id: productId,
+    });
+
+    await dataService.createStock({
+      count,
+      product_id: productId,
     });
 
     return ({

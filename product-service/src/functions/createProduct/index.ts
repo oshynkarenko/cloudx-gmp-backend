@@ -9,6 +9,7 @@ export default {
         method: 'post',
         path: 'products',
         bodyType: 'CreateProductData',
+        cors: true,
         responses: {
           201: {
             description: 'Success response',
