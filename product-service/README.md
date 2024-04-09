@@ -17,6 +17,7 @@ In order to test the functions locally, run the following commands:
 
 - `serverless invoke local --function getProductList --path src/functions/getProductList/mock.json`
 - `serverless invoke local --function getProductById --path src/functions/getProductById/mock.json`
+- `serverless invoke local --function createProduct --path src/functions/createProduct/mock.json`
 
 ### Remotely
 

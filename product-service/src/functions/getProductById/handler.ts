@@ -1,25 +1,32 @@
-import { dataService } from '../../helpers';
+import {dataService, errorHandlingService, loggerService} from '../../helpers';
 
 export const getProductById = async (event) => {
-  const { productId } = event.pathParameters;
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-  };
-  const product = await dataService.getProductById(productId);
+  loggerService.logIncomingRequest(event);
 
-  if (product) {
-    return ({
-      statusCode: 200,
-      headers,
-      body: JSON.stringify(product),
-    });
+  try {
+    const { productId } = event.pathParameters;
+    const headers = {
+      'Access-Control-Allow-Origin': '*',
+    };
+    const { Items: productData } = await dataService.getProductById(productId);
+    const { Items: stockData } = await dataService.getCountById(productId);
+
+    if (productData.length) {
+      const product = productData[0];
+      const result = {
+        ...product,
+        count: stockData[0]?.count || 0,
+      };
+
+      return ({
+        statusCode: 200,
+        headers,
+        body: JSON.stringify(result),
+      });
+    }
+
+    return errorHandlingService.notFoundHandler(`Product ${productId} not found`);
+  } catch {
+    return errorHandlingService.genericErrorHandler();
   }
-
-  return ({
-    statusCode: 404,
-    headers,
-    body: JSON.stringify({
-      message: `Product ${productId} not found`,
-    }),
-  });
 };
