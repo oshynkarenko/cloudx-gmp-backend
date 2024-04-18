@@ -1,0 +1,36 @@
+{
+  "Records": [
+    {
+      "eventVersion": "2.1",
+      "eventSource": "aws:s3",
+      "awsRegion": "eu-north-1",
+      "eventTime": "2024-04-10T16:00:18.648Z",
+      "eventName": "ObjectCreated:Put",
+      "userIdentity": {
+        "principalId": "AWS:AIDAXYKJSX5GWCWMWST4J"
+      },
+      "requestParameters": {
+        "sourceIPAddress": "195.56.119.209"
+      },
+      "responseElements": {
+        "x-amz-request-id": "WGR8RMES2BPA5BJ8",
+        "x-amz-id-2": "7kmrz5BSPZLxmvZytsHCx1GhPetth8lT4PYtdCQ8GXy9zw4CiEynlP3761O7XSlu4O+5rxwaQBW+JqYrz0VSOm4CyffXtTyj"
+      },
+      "s3": {
+        "s3SchemaVersion": "1.0",
+        "configurationId": "import-service-dev-importFilesParser-f44ad7ee509bb8c386e483cc43085ed9",
+        "bucket": {
+          "name": "oshynkarenko-cloudx-gmp-task6",
+          "ownerIdentity": "[Object]",
+          "arn": "arn:aws:s3:::oshynkarenko-cloudx-gmp-task6"
+        },
+        "object": {
+          "key": "uploaded/products.csv",
+          "size": 445,
+          "eTag": "0abc9cdc31b7c3fe550cbe7e3ac85f86",
+          "sequencer": "006616B7929926B08D"
+        }
+      }
+    }
+  ]
+}
