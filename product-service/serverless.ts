@@ -3,6 +3,7 @@ import type { AWS } from '@serverless/typescript';
 import getProductList from '@functions/getProductList';
 import getProductById from '@functions/getProductById';
 import createProduct from '@functions/createProduct';
+import catalogBatchProcess from '@functions/catalogBatchProcess';
 
 const serverlessConfiguration: AWS = {
   service: 'product-service',
@@ -13,7 +14,7 @@ const serverlessConfiguration: AWS = {
     deploymentMethod: 'direct',
     stage: 'dev',
     region: 'eu-north-1',
-    runtime: 'nodejs14.x',
+    runtime: 'nodejs20.x',
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
@@ -23,17 +24,79 @@ const serverlessConfiguration: AWS = {
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
       PRODUCTS_TABLE: '${self:custom.productsTable}',
       STOCKS_TABLE: '${self:custom.stocksTable}',
+      SNS_ARN: {
+        Ref: 'CreateProductTopic',
+      },
     },
+    iamRoleStatements: [
+      {
+        Effect: 'Allow',
+        Action: ['sqs:*'],
+        Resource: 'arn:aws:sqs:eu-north-1:*:*',
+      },
+      {
+        Effect: 'Allow',
+        Action: ['sns:Publish'],
+        Resource: {
+          Ref: 'CreateProductTopic',
+        },
+      },
+    ],
   },
   // import the function via paths
-  functions: { getProductList, getProductById, createProduct },
+  functions: {
+    getProductList,
+    getProductById,
+    createProduct,
+    catalogBatchProcess,
+  },
+  resources: {
+    Resources: {
+      SQSQueue: {
+        Type: 'AWS::SQS::Queue',
+        Properties: {
+          QueueName: '${self:custom.catalogItemsQueue}',
+        },
+      },
+      CreateProductTopic: {
+        Type: 'AWS::SNS::Topic',
+        Properties: {
+          DisplayName: '${self:custom.createProductTopic}',
+        },
+      },
+      CreateProductSubscription: {
+        Type: 'AWS::SNS::Subscription',
+        Properties: {
+          Protocol: 'email',
+          Endpoint: 'shynkarenko.o@gmail.com',
+          TopicArn: {
+            Ref: 'CreateProductTopic',
+          },
+        },
+      },
+      ErrorCreateProductSubscription: {
+        Type: 'AWS::SNS::Subscription',
+        Properties: {
+          Protocol: 'email',
+          Endpoint: 'olena_shynkarenko@epam.com',
+          TopicArn: {
+            Ref: 'CreateProductTopic',
+          },
+          FilterPolicy: {
+            priceLevel: ['HIGH'],
+          },
+        },
+      },
+    },
+  },
+
   package: { individually: true },
   custom: {
     esbuild: {
       bundle: true,
       minify: false,
       sourcemap: true,
-      target: 'node14',
+      target: 'node20',
       define: { 'require.resolve': undefined },
       platform: 'node',
       concurrency: 10,
@@ -44,6 +107,9 @@ const serverlessConfiguration: AWS = {
     },
     productsTable: 'CloudX-GMP-Products',
     stocksTable: 'CloudX-GMP-Stocks',
+    catalogItemsQueue: 'catalogItemsQueue',
+    createProductTopic: 'createProductTopic',
+    createProductSubscription: 'createProductSubscription',
   },
 };
 

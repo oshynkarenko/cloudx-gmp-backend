@@ -4,8 +4,8 @@
   },
   "body": {
     "product": {
-      "title": "ProductTen",
-      "description": "Short Product Description10",
+      "title": "ProductTwenty",
+      "description": "Short Product Description20",
       "price": 40,
       "count": 20
     }

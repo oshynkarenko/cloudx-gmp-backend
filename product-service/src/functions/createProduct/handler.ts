@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid'
-
 import {dataService, errorHandlingService, loggerService, validationService} from '../../helpers';
 
 export const createProduct = async (event) =>  {
@@ -12,18 +10,7 @@ export const createProduct = async (event) =>  {
   }
 
   try {
-    const productId = uuidv4();
-    const { count, ...product } = productData;
-
-    await dataService.createProduct({
-      ...product,
-      id: productId,
-    });
-
-    await dataService.createStock({
-      count,
-      product_id: productId,
-    });
+    await dataService.createProduct(productData);
 
     return ({
       statusCode: 201,

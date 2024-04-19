@@ -1,0 +1,39 @@
+{
+  "Records": [
+    {
+      "messageId": "ea2eb585-e7f4-4cf8-b7af-293e95d06262",
+      "receiptHandle": "AQEBm8eMy9fzbGQADaxoyUPEJJu+Bw44CjvUg8lXFYTEVDfm5VupW+coQIny6uSUnRpoTzjw2TqWGxnXkLfoUMpu5oGffTM2vZs6+5ULeSR7xOtU+OH9RplHkOlQUTbOZVJXFtNMr256XkvwwRPD7iqlwq+coL7H0UYHQiAvz/VpEy+0Z5wuyckgnucpMkLZW7gvTla0li/erfMkyrmVLfEDU3bmMglT9xf1BzZgAUtLhKganYT1UIww1oAzCtS6bvverw8G4qsexwqaTcKDq6j9Fix/w0Xxfj/BTHvpLY2vm9fR6+rNWZuLOUQpRrOToH/XOr0sCRdymzl8kgmi/PIIyXI0J/puhSUKGbYpIatmG7dtxBCZy5XUk/oEaKdp4cyySl5Xiw8Ijr1Ik3WCMkebpA==",
+      "body": {
+        "title":"Sample Product 1",
+        "description":"Sample Product Description 1",
+        "price":"10",
+        "count":"15"
+      },
+      "attributes": [
+        {}
+      ],
+      "messageAttributes": {
+      },
+      "md5OfBody": "fe9f803dc719788bf2908aacfc551cec",
+      "eventSource": "aws:sqs",
+      "eventSourceARN": "arn:aws:sqs:eu-north-1:533267136333:catalogItemsQueue",
+      "awsRegion": "eu-north-1"
+    },
+    {
+      "messageId": "46ace971-9796-4f7b-914e-e682e2cecd14",
+      "receiptHandle": "AQEBM+AWDFFI5vDYwH9z+CEA6xWnOVQ507nOboQ7x0i4rwzl0bW714hk4+k10je5WzXARRKN8UMS2uY7ZavVYQBilAAwL2S2bp/avd44SNyaheQu3u6GT08kNrb/5fOzrM55JfncMhx18Og/BonFdFF4xAQ6jgaS26kuCuq68WsOsxnixcOCQ6jAG7wMwzVxD2xHpVnmIE9fhpDf8COILZML6ASvemCCcc2zOp1zAE0UG4sNK4uzqsdugP0TcFnqbDXaDddLYm5b4csSx115zX+Djg5VJ8Wox6mY0kKQ7auvVa4f+puGrUYxBhM7dRnMoCRpMCdvz4drl3OpgyT66M3rfloCGm/Ynfh/E9YBdf+ii5iW33hMvYaj6ExpD/lsVkB0QhJaKNtQWhoLQTW9s0Hx+A==",
+      "body": {
+        "title": "Sample Product 2",
+        "description": "Sample Product Description 2",
+        "price":"20",
+        "count":"25"
+      },
+      "attributes": [{}],
+      "messageAttributes": {},
+      "md5OfBody": "2df2adab75bd1ec468ee46d56610e5a7",
+      "eventSource": "aws:sqs",
+      "eventSourceARN": "arn:aws:sqs:eu-north-1:533267136333:catalogItemsQueue",
+      "awsRegion": "eu-north-1"
+    }
+  ]
+}
