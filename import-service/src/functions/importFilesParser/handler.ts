@@ -4,8 +4,8 @@ import {
   GetObjectCommand,
   S3Client,
 } from '@aws-sdk/client-s3';
+import { SendMessageCommand, SQSClient } from '@aws-sdk/client-sqs';
 import csv from 'csv-parser';
-
 import { errorHandlingService } from '../../helpers';
 
 export const importFilesParser = async (event) =>  {
@@ -13,6 +13,7 @@ export const importFilesParser = async (event) =>  {
 
   try {
     const s3 = new S3Client({ region: 'eu-north-1' });
+    const sqs = new SQSClient({ region: 'eu-north-1' });
     const BUCKET = 'oshynkarenko-cloudx-gmp-task6';
 
     for (const record of event.Records) {
@@ -38,7 +39,10 @@ export const importFilesParser = async (event) =>  {
       const { Body: data} = await s3.send(getObject);
 
       console.log('Starting data parsing...')
-      await data.pipe(csv()).on('data', (item) => console.log(item));
+      await data.pipe(csv()).on('data', (item) => sqs.send(new SendMessageCommand({
+        QueueUrl: process.env.SQS_URL,
+        MessageBody: JSON.stringify(item)
+      })));
 
       await s3.send(copyObject);
       console.log('Product data has been successfully parsed and moved to the /parsed folder');
