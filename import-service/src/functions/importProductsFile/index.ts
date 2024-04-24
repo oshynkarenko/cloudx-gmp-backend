@@ -16,6 +16,11 @@ export default {
             },
           },
         },
+        authorizer: {
+          arn: 'arn:aws:lambda:eu-north-1:533267136333:function:authorization-service-dev-basicAuthorizer',
+          type: 'token',
+          resultTtlInSeconds: 0,
+        },
         responses: {
           200: {
             description: 'Success response',
