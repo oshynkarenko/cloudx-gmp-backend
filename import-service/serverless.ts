@@ -26,6 +26,32 @@ const serverlessConfiguration: AWS = {
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
     },
   },
+  resources: {
+    Resources: {
+      GatewayResponse401: {
+        Type: 'AWS::ApiGateway::GatewayResponse',
+        Properties: {
+          ResponseParameters: {
+            'gatewayresponse.header.Access-Control-Allow-Origin': "'*'",
+            'gatewayresponse.header.Access-Control-Allow-Headers': "'*'",
+          },
+          ResponseType: 'UNAUTHORIZED',
+          RestApiId: { Ref: 'ApiGatewayRestApi' },
+        },
+      },
+      GatewayResponse403: {
+        Type: 'AWS::ApiGateway::GatewayResponse',
+        Properties: {
+          ResponseParameters: {
+            'gatewayresponse.header.Access-Control-Allow-Origin': "'*'",
+            'gatewayresponse.header.Access-Control-Allow-Headers': "'*'",
+          },
+          ResponseType: 'ACCESS_DENIED',
+          RestApiId: { Ref: 'ApiGatewayRestApi' },
+        },
+      },
+    },
+  },
   functions: { importProductsFile, importFilesParser },
   package: { individually: true },
   custom: {
